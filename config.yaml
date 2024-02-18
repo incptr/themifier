@@ -1,0 +1,107 @@
+---
+globals:
+  polybar_config: /home/s0001604/.config/polybar/config.ini
+  warpd_config: /home/s0001604/programs/warpd/src/config.c
+  dmenu_config: /home/s0001604/programs/dmenu-5.2/config.h 
+  kitty_config: /home/s0001604/.config/kitty/kitty.conf
+  dunst_config: /home/s0001604/.config/dunst/dunstrc
+  i3_config: /home/s0001604/.config/i3/config
+  themifier_dir: /home/s0001604/.config/themifier/
+components:
+  - background:
+    enabled: false
+    cmd: feh --bg-fill <background>
+
+  - polybar:
+    enabled: true
+    substitutions:
+      engine: perl
+      changes:
+        - ['(?<=background =  #).*', <color0>, <polybar_config>]
+        - ['(?<=alert =  #).*', <color1>, <polybar_config>]
+        - ['(?<=green =  #).*', <color2>, <polybar_config>]
+        - ['(?<=primary =  #).*', <color3>, <polybar_config>]
+        - ['(?<=seconday =  #).*', <color4>, <polybar_config>]
+        - ['(?<=foreground =  #).*', <color7>, <polybar_config>]
+
+  - warpd:
+    enabled: false
+    substitutions:
+      engine: perl
+      changes:
+        - ['(?<=red_color., .#).{6}', <color1>, <warpd_config>]
+        - ['(?<=green_color., .#).{6}', <color2>, <warpd_config>]
+        - ['(?<=yellow_color., .#).{6}', <color3>, <warpd_config>]
+        - ['(?<=blue_color., .#).{6}', <color4>, <warpd_config>]
+        - ['(?<=gray_color., .#).{6}', <color7>, <warpd_config>]
+    cmd: <themifier_dir>/scripts/warpd_update.sh
+
+  - dmenu:
+    enabled: false
+    substitutions:
+      engine: perl
+      changes:
+        - ['(?<=SchemeNorm].{3,8})[0-9a-fA-F]{6}', <color7>, <dmenu_config>]
+        - ['(?<=SchemeNorm].{13,20})[0-9a-fA-F]{6}', <color0>, <dmenu_config>]
+        - ['(?<=SchemeSel].{3,8})[0-9a-fA-F]{6}', <color0>, <dmenu_config>]
+        - ['(?<=SchemeSel].{13,20})[0-9a-fA-F]{6}', <color2>, <dmenu_config>]
+        - ['(?<=SchemeOut].{3,8})[0-9a-fA-F]{6}', <color7>, <dmenu_config>]
+        - ['(?<=SchemeOut].{13,20})[0-9a-fA-F]{6}', <color4>, <dmenu_config>]
+        - ['(?<=SchemeSelHighlight].{3,8})[0-9a-fA-F]{6}', <color3>, <dmenu_config>]
+        - ['(?<=SchemeSelHighlight].{13,20})[0-9a-fA-F]{6}', <color2>, <dmenu_config>]
+        - ['(?<=SchemeNormHighlight].{3,8})[0-9a-fA-F]{6}', <color3>, <dmenu_config>]
+        - ['(?<=SchemeNormHighlight].{13,20})[0-9a-fA-F]{6}', <color0>, <dmenu_config>]
+    cmd: <themifier_dir>/scripts/dmenu_update.sh
+        
+  - kitty:
+    enabled: false
+    substitutions:
+      engine: perl
+      changes:
+        - ['(?<=color0 #)[0-9a-fA-F]{6}', <color0>, <kitty_config>]
+        - ['(?<=color1 #)[0-9a-fA-F]{6}', <color1>, <kitty_config>]
+        - ['(?<=color2 #)[0-9a-fA-F]{6}', <color2>, <kitty_config>]
+        - ['(?<=color3 #)[0-9a-fA-F]{6}', <color3>, <kitty_config>]
+        - ['(?<=color4 #)[0-9a-fA-F]{6}', <color4>, <kitty_config>]
+        - ['(?<=color5 #)[0-9a-fA-F]{6}', <color5>, <kitty_config>]
+        - ['(?<=color6 #)[0-9a-fA-F]{6}', <color6>, <kitty_config>]
+        - ['(?<=color7 #)[0-9a-fA-F]{6}', <color7>, <kitty_config>]
+
+  - dunst:
+    enabled: false
+    substitutions:
+      engine: perl
+      changes:
+        - ['(?<=foreground = .#)[0-9a-fA-F]{6}', <color7>, <dunst_config>]
+
+  - i3:
+    enabled: false
+    substitutions:
+      engine: perl
+      changes:
+        - ['(?<=client.focused {8,12}#)[0-9a-fA-F]{6}', <color2>, <i3_config>]
+        - ['(?<=client.focused {16,20}#)[0-9a-fA-F]{6}', <color0>, <i3_config>]
+        - ['(?<=client.focused {24,28}#)[0-9a-fA-F]{6}', <color7>, <i3_config>]
+        - ['(?<=client.focused {32,36}#)[0-9a-fA-F]{6}', <color0>, <i3_config>]
+
+        # - ['(?<=client.unfocused {8,12}#)[0-9a-fA-F]{6}', <color0>, <i3_config>]
+        - ['(?<=client.unfocused {16,20}#)[0-9a-fA-F]{6}', <color0>, <i3_config>]
+        # - ['(?<=client.unfocused {24,28}#)[0-9a-fA-F]{6}', <color7>, <i3_config>]
+        - ['(?<=client.unfocused {32,36}#)[0-9a-fA-F]{6}', <color0>, <i3_config>]
+
+        # - ['(?<=client.focused_inactive {8,12}#)[0-9a-fA-F]{6}', <color0>, <i3_config>]
+        # - ['(?<=client.focused_inactive {16,20}#)[0-9a-fA-F]{6}', <color0>, <i3_config>]
+        # - ['(?<=client.focused_inactive {24,28}#)[0-9a-fA-F]{6}', <color7>, <i3_config>]
+        # - ['(?<=client.focused_inactive {32,36}#)[0-9a-fA-F]{6}', <color0>, <i3_config>]
+
+        # - ['(?<=client.placeholder {8,12}#)[0-9a-fA-F]{6}', <color0>, <i3_config>]
+        # - ['(?<=client.placeholder {16,20}#)[0-9a-fA-F]{6}', <color0>, <i3_config>]
+        # - ['(?<=client.placeholder {24,28}#)[0-9a-fA-F]{6}', <color7>, <i3_config>]
+        # - ['(?<=client.placeholder {32,36}#)[0-9a-fA-F]{6}', <color0>, <i3_config>]
+
+        # - ['(?<=client.urgent {8,12}#)[0-9a-fA-F]{6}', <color0>, <i3_config>]
+        # - ['(?<=client.urgent {16,20}#)[0-9a-fA-F]{6}', <color0>, <i3_config>]
+        # - ['(?<=client.urgent {24,28}#)[0-9a-fA-F]{6}', <color7>, <i3_config>]
+        # - ['(?<=client.urgent {32,36}#)[0-9a-fA-F]{6}', <color0>, <i3_config>]
+  - picom:
+    enabled: false
