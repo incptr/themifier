@@ -4,7 +4,7 @@ import os
 import subprocess
 
 
-def insert_variables(command,config, theme):
+def insert_variables(command, config, theme):
     """
     Replace placeholders in a string with corresponding values from a dictionary.
 
@@ -34,17 +34,20 @@ def run_update_command(command, config, theme):
 def get_engine(engine):
     if engine == "perl":
         return ["perl", "-pi, -e"]
+    elif engine == "sed":
+        return ["sed", "-i"]
+    raise ValueError("No valid regex engine provided.")
 
 
 def do_change(change, engine, config, theme):
     regex = insert_variables(f"s/{change[0]}/{change[1]}/g", config, theme)
-    target_file =  insert_variables(change[2], config, theme)
+    target_file = insert_variables(change[2], config, theme)
     command = engine + [regex, target_file]
     print(f"Running {command}")
     subprocess.run(command)
 
 
-def run_substititions(substitutions,config, theme):
+def run_substititions(substitutions, config, theme):
     engine = get_engine(substitutions["engine"])
     for change in substitutions["changes"]:
         do_change(change, engine, config, theme)
@@ -55,7 +58,7 @@ def parse_component(component, config, theme):
     if "cmd" in component.keys():
         run_update_command(component["cmd"], config, theme)
     if "substitutions" in component.keys():
-        run_substititions(component["substitutions"],config, theme)
+        run_substititions(component["substitutions"], config, theme)
 
 
 def update_components(config, theme):
