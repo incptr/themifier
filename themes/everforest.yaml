@@ -13,3 +13,20 @@ theme:
     color6: 83c092 
     color7: d3c6aa 
     color8: 7a8478
+
+    fg: d3c6aa
+    border: 2e3440
+    red: e67e80
+    orange: e69875
+    yellow: dbbc7f
+    green: a7c080
+    aqua: 83c092
+    blue: 7fbbb3
+    purple: D59696
+    grey0: 7a8478
+    grey1: 859289
+    grey2: 9da9a0
+
+    statusline1: a7c080
+    statusline2: d3c6aa
+    statusline3: e67e80
